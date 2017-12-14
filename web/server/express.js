@@ -10,7 +10,8 @@ import fsr from 'file-stream-rotator' // 每天自动生成一个日志
 import compression from 'compression' // Http Request 压缩
 import errorhandler from 'errorhandler' //错误处理，仅用于Development模式
 import favicon from 'serve-favicon'
-import session from 'serve-static'
+import session from 'express-session'
+import serveStatic from 'serve-static'
 import exphbs from 'express-handlebars'
 
 module.exports = (app, env, config) => {
@@ -37,15 +38,15 @@ module.exports = (app, env, config) => {
     }
 
     //创建一个循环写入流
-    const accessLogsStream = fs.getStream({
-        date_format: YYYYMMDD,
+    const accessLogsStream = fsr.getStream({
+        date_format: 'YYYYMMDD',
         filename: `${logDirectory}/%DATE%-web.log`,
         frequency: 'daily',
         verbose: false
     })
 
     app.use(morgan('short', {
-        stream: acceeLogStream
+        stream: accessLogsStream
     }))
 
     /**

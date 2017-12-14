@@ -4,7 +4,7 @@
   "description": "My project gitProject",
   "main": "babel.web.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "node ./bebel.web.js"
   },
   "repository": {
     "type": "git",

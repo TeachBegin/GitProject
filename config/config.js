@@ -1,4 +1,4 @@
-import path, { dirname } from 'path'
+import path from 'path'
 
 export default {
     name: 'GitProject',
