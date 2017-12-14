@@ -4,7 +4,7 @@
   "description": "My project gitProject",
   "main": "babel.web.js",
   "scripts": {
-    "web": "node ./bebel.web.js"
+    "web": "nodemon ./web/webserver.js"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
-import http from 'http'
-import express from 'express'
+const http =require('http')
+const express =require('express')
 
-import config from '../config/config'
+const config =require('../config/config')
 
 
 /**

@@ -1,18 +1,18 @@
 /**
  * NodeJS 自带库
  */
-import fs from 'fs'
-import path from 'path'
+const fs =require('fs')
+const path =require('path')
 
-import bodyparser from 'body-parser' // 提供 JSON /Raw /Text /URL-encoded 解析
-import morgan from 'morgan' // HTTP request logger
-import fsr from 'file-stream-rotator' // 每天自动生成一个日志
-import compression from 'compression' // Http Request 压缩
-import errorhandler from 'errorhandler' //错误处理，仅用于Development模式
-import favicon from 'serve-favicon'
-import session from 'express-session'
-import serveStatic from 'serve-static'
-import exphbs from 'express-handlebars'
+const bodyparser =require('body-parser') // 提供 JSON /Raw /Text /URL-encoded 解析
+const morgan = require('morgan') // HTTP request logger
+const fsr = require('file-stream-rotator') // 每天自动生成一个日志
+const compression = require('compression') // Http Request 压缩
+const errorhandler =require('errorhandler') //错误处理，仅用于Development模式
+const favicon = require('serve-favicon')
+const session = require('express-session')
+const serveStatic = require('serve-static')
+const exphbs = require('express-handlebars')
 
 module.exports = (app, env, config) => {
     /**
@@ -73,8 +73,8 @@ module.exports = (app, env, config) => {
   app.engine(
     '.hbs',
     exphbs({
-      layoutsDir: 'web/views/layouts',
-      partialsDir: 'web/views/partials',
+      layoutsDir: path.join(config.rootPath, 'web/views/layouts'),
+      partialsDir: path.join(config.rootPath, 'web/views/partials'),
       defaultLayout: 'main',
       extname: '.hbs'
     })
