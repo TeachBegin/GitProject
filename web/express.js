@@ -12,7 +12,6 @@ const errorhandler =require('errorhandler') //错误处理，仅用于Developmen
 const favicon = require('serve-favicon')
 const session = require('express-session')
 const serveStatic = require('serve-static')
-const exphbs = require('express-handlebars')
 
 module.exports = (app, env, config) => {
     /**
@@ -52,8 +51,8 @@ module.exports = (app, env, config) => {
     /**
      * 用于指定URL路径和服务器路径的映射
      */
-    const publicDir = path.resolve(__dirname,'./public')
-    app.use(serveStatic(publicDir))
+    const publicDir = path.resolve(__dirname,'./bundle')
+    app.use('/bundle',serveStatic(publicDir))
 
      /**
    * 压缩
@@ -66,27 +65,32 @@ module.exports = (app, env, config) => {
     )
   )
 
-
-  /**
-   * 页面/视图 模板使用 Handlebars
-   */
-  app.engine(
-    '.hbs',
-    exphbs({
-      layoutsDir: path.join(config.rootPath, 'web/views/layouts'),
-      partialsDir: path.join(config.rootPath, 'web/views/partials'),
-      defaultLayout: 'main',
-      extname: '.hbs'
-    })
-  )
-
-  app.set('views', path.join(config.rootPath, 'web/views'))
-  app.set('view engine', '.hbs')
-
-
   /**
    * 设定收藏icon
    */
   // app.use(favicon(path.join(config.rootPath, 'favicon.ico')))
+
+}
+
+/**
+ * 判断运行环境，开发环境使用加热，生产环境不要使用
+ */
+if (env === 'development') {
+    const webpack = require('webpack')
+    const webpackDevMiddleware = require('webpack-dev-middleware')
+    const webpackHotMiddleware = require('webpack-hot-middleware')
+    const config = require('../config/webdev.webpack.config')
+    // webpack 热加载
+    const compiler = webpack(config)
+    app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+    app.use(webpackHotMiddleware(compiler))
+
+    // handle error
+    app.locals.pretty = true
+    app.use(errorhandler({
+      dumpExceptions: true,
+      showStack: true
+    }))
+  
 
 }

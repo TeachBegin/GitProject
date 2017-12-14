@@ -1,0 +1,13 @@
+.wrap {
+    display: flex;
+}
+.nav {
+    min-height: 100vh;
+    flex: 0 0 10%;
+    border-right:2px solid #ddd;
+}
+
+.content {
+    flex: 0 0 90%;
+    padding-left: 30px;
+}
