@@ -13,17 +13,17 @@ module.exports = {
   entry: {
     vendor: ['react', 'react-dom', 'react-router-dom'],
     style: [
-      './src/style/main.scss'
+      './web/src/style/main.scss'
     ],
     components: [
-      './src/App.js'
+      './web/src/App.js'
     ]
   },
 
   output: {
     path: path.resolve(__dirname, '../bundle'),
     filename: '[name].js',
-    //chunkFilename: '[name].chunk.js',
+    chunkFilename: '[name].chunk.js',
     publicPath: '/bundle/',
     sourceMapFilename: 'map/[file].map'
   },
@@ -96,7 +96,7 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    
     new webpack.optimize.CommonsChunkPlugin('vendor'),
     new webpack.DefinePlugin({
       "process.env": {
